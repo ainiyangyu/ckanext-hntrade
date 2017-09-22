@@ -1,0 +1,41 @@
+{% set tags = h.get_facet_items_dict('tags', limit=5) %}
+{% set groups = h.get_facet_items_dict('groups', limit=5) %}
+{% set organizations = h.get_facet_items_dict('organizations', limit=5) %}
+
+<div class="hn_search_wrap">
+    <form id="search_form" class="module-content search-form" method="get" action="{% url_for controller='package', action='search' %}">
+        <div class="input-group">
+            <div class="input-group-btn" id="search_dropdown">
+                <!-- Button and dropdown menu -->
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="">查看更多 <span class="icon icon-caret-down"></span></button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <span class="search_type_name">热门标签：</span>
+                        <ul class="hot search_type">
+                            {% for tag in tags %}
+                            <li class="se_content"><a href="{% url_for controller='package', action='search', tags=tag.name %}">{{ h.truncate(tag.display_name, 22) }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {#<li role="separator" class="divider"></li>
+                    <li>
+                        <span class="search_type_name">群&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;组：</span>
+                        <ul class="qz search_type">
+                            {% for group in groups %}
+                            <li class="se_content"><a href="{% url_for controller='package', action='search', groups=group.name %}">{{ h.truncate(group.display_name, 22) }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>#}
+                </ul>
+            </div>
+            <input type="text" class="form-control" name="q" value="" autocomplete="off" aria-label="..." id="search_text">
+
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                    <i class="icon-search"></i>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

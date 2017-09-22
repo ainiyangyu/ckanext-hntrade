@@ -1,0 +1,98 @@
+{% set truncate = 130 %}
+{% set truncate_title = truncate_title or 30 %}
+{% set title = package.title or package.name %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate) %}
+{% set group_id = package.groups[0].get('name') if package.groups %}
+{% set group_name = package.groups[0].get('display_name') if package.groups %}
+{% set pkg_views = h.get_package_views(package.id) %}
+{% set organization = h.get_organization(package.organization.name) if package.organization %}
+
+{% block package_item %}
+<li class="cc-content-li">
+    {% block content %}
+    <div class="cc-content-li-l">
+        <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}">
+            {% if organization.image_display_url %}
+                <img src="{{ organization.image_display_url }}" alt="{{ organization.name }}">
+            {% else %}
+                <img src="/img/unclassified.png" alt="">
+            {% endif %}
+        </a>
+    </div>
+    <div class="cc-content-li-c">
+        {% block heading %}
+        <div class="cc-content-li-title">
+            {% block heading_private %}
+                {% if package.private %}
+                    <span class="dataset-private label label-inverse">
+                          <i class="icon-lock"></i>
+                          {{ _('Private') }}
+                    </span>
+                {% endif %}
+            {% endblock %}
+
+            {% block heading_title %}
+                <span class="cc-content-li-title">
+                  <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}">{{ h.truncate(title, truncate_title) }}</a>
+                </span>
+            {% endblock %}
+
+            {% block heading_meta %}
+                {% if package.get('state', '').startswith('draft') %}
+                    <span class="label label-info">{{ _('Draft') }}</span>
+                {% elif package.get('state', '').startswith('deleted') %}
+                    <span class="label label-important">{{ _('Deleted') }}</span>
+                {% endif %}
+            {% endblock %}
+
+            {% block resources %}
+                {% if package.resources and not hide_resources %}
+                    {% block resources_outer %}
+                    <div class="cc-dataset-format">
+                        <ul>
+                            {% block resources_inner %}
+                                {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+                                    <li>
+                                        <span class="format-label" data-format="{{ resource.lower() }}">{{ resource }}</span>
+                                    </li>
+                                {% endfor %}
+                            {% endblock %}
+                        </ul>
+                    </div>
+                    {% endblock %}
+                {% endif %}
+            {% endblock %}
+        </div>
+        {% endblock %}
+
+        {% block banner %}
+            {% if banner %}
+                <span class="banner">{{ _('Popular') }}</span>
+            {% endif %}
+        {% endblock %}
+
+        {% block notes %}
+            {% if notes %}
+                <div class="cc-content-li-details">{{ notes|urlize }}</div>
+            {% else %}
+                <div class="cc-content-li-details"><p class="empty">{{ _("This dataset has no description") }}</p></div>
+            {% endif %}
+        {% endblock %}
+
+        {% block other_info %}
+            <p class="cc-content-li-bottom">
+                <span>创建时间：{{ h.render_datetime(package.get('metadata_created'), date_format='%Y-%m-%d %H:%M') }}</span>&emsp;
+                <span>更新时间：{{ h.render_datetime(package.get('metadata_modified'), date_format='%Y-%m-%d %H:%M') }}</span>&emsp;
+                <span><i class="icon-eye-open"></i> {{ pkg_views }}</span>
+            </p>
+        {% endblock %}
+
+        {% block theme_tag %}
+            <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}">
+                <p class="do-li-catagory red">{{ group_name if group_name else '其他' }}</p>
+            </a>
+        {% endblock %}
+    </div>
+    {% endblock %}
+</li>
+{% endblock %}

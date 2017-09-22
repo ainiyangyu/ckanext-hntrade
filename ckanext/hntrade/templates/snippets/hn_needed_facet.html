@@ -1,0 +1,26 @@
+{% set original = h.get_facet_items_dict(name) %}
+{% set items = h.custom_get_facet_list(original, name) %}
+
+{% block facet_list %}
+    {% block facet_list_item %}
+        {% block facet_list_items %}
+            {% if items %}
+                <ul class="cc-data-catalogue-ul">
+                    {% for item in items %}
+                        {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.custom_add_url_param(new_params={name: item.name}) %}
+                        {% set label = label_function(item) if label_function else item.display_name %}
+                        {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+                        {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                        <li class="cc-data-catagory-li{% if item.active %} cc-data-active{% endif %}">
+                            <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+                                <span class="cc-data-catagory-des">{{ label_truncated }} {{ count }}</span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="module-content empty">没有相关内容</p>
+            {% endif %}
+        {% endblock %}
+    {% endblock %}
+{% endblock %}

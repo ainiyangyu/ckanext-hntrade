@@ -1,0 +1,129 @@
+.footer{
+    width: 100%;
+    height: 200px;
+    background-color: #434343;
+    margin-top: 10px;
+    clear: both;
+}
+/*.footer_line li a{*/
+    /*margin-left: 30px;*/
+    /*text-align: left;*/
+/*}*/
+.footer  .footer_line li a:link,.footer  .footer_line li a:visited{
+    color:#a6a7aa;
+}
+.footer  .footer_line li a:hover,.footer  .footer_line li a:active{
+    color:#fff;
+    text-decoration: underline;
+}
+.footer a:link,.footer a:visited
+{
+    text-decoration: none;
+    color: #F3F3F3;
+    line-height: 26px;
+}
+.footer a:hover,.footer a:active {
+    text-decoration: none;
+    color: #E61014;
+    line-height: 26px;
+}
+.footer_list{
+    width: 1180px;
+    margin: 0 auto;
+    padding-top: 20px;
+    text-align: center;
+    overflow: hidden;
+}
+.footer_list li{
+    float: left;
+    list-style-type: none;
+    width: 200px;
+}
+.footer .footer_first_li{
+    width: 155px;
+}
+.footer_list .footer_first_li li{
+    margin-left: 31px;
+}
+/*.footer_first_li .footer_left_line_hidden*/
+.footer_list h4{
+    display: inline-block;
+    color:#d6d6d6;
+    line-height:50px ;
+}
+.footer_line{
+    padding-top:-16px;
+    height:150px;
+    /*text-align: left;*/
+    border-left:1px dashed #666666;
+    overflow: hidden;
+}
+.footer_list .footer_left_line_hidden{
+    border-left:0px;
+    text-align: left;
+}
+.footer_line img{
+    height:16px;
+    margin-right: 11px;
+    /*margin-bottom:119px;*/
+	position: relative;
+    top: -3px;
+}
+.footer_line li{
+    text-align: left;
+    margin-left: 84px;
+    clear: both;
+    padding-left:4em; text-indent:-4em;
+}
+.footer_line li a{
+    font-size: 14px;
+}
+.footer_line span{
+    font-size: 14px;
+    line-height: 26px;
+    color: #a6a7aa;
+}
+.footer_list  .footer_list_last{
+    width: 420px;
+}
+.footer_list_last .footer_line{
+    width: 320px;
+    float: left;
+}
+
+.footer_list_last .footer_line img{
+    text-align: left;
+    margin-left: -140px;
+}
+/*.footer_list_last ul li{*/
+    /*margin-left: 70px;*/
+    /*width:162px;*/
+/*}*/
+.footer_list_last ul li{
+    margin-left: 74px;
+    width:192px;
+}
+.footer_code{
+    margin-top:15px;
+    float: right;
+}
+
+.footer_code img{
+    width: 90px;
+}
+.service_box_title_hover h3{
+    color:#F3F3F3;
+}
+.default_service_box h3{
+    color:#F3F3F3;
+}
+.footer2{
+    width: 100%;
+    height: 38px;
+    text-align: center;
+    background-color: #666666;
+    line-height: 38px;
+}
+.footer2 p{
+    color: #F3F3F3;
+}

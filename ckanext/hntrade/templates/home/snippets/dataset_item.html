@@ -1,0 +1,27 @@
+{% set truncate_notes = 80 %}
+{% set truncate_title = 25 %}
+{% set title = h.markdown_extract(package.title or package.name, extract_length=truncate) %}
+{% set notes = h.markdown_extract(package.notes, extract_length=truncate_notes) %}
+
+<div class="hn_popular hvr-float-shadow">
+    <div class="dataset_name">
+        <div class="hn_dataset_img" id="{{ img_type }}{{ icon_index }}"></div>
+            <div class="hn_dataset_a">
+                <a href="{{ h.url_for(controller='package', action='read', id=package.name) }}">{{ h.truncate(title, truncate_title) }}</a>
+            </div>
+    </div>
+    <div class="hn_popular_line1"></div>
+        <div class="dataset_des">
+            {% if notes %}
+            <p>{{ notes|urlize }}</p>
+            {% else %}
+            <p>该数据集没有简介</p>
+            {% endif %}
+        </div>
+    <div class="hn_popular_footer">
+        <span class="dataset-modified">{{ h.render_datetime(package.get('metadata_modified'), date_format='%Y-%m-%d') }}</span>
+        {% for resource in h.dict_list_reduce(package.resources, 'format') %}
+          <span class="format-label" data-format="{{ resource.lower() }}"></span>
+        {% endfor %}
+    </div>
+</div>

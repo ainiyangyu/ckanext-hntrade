@@ -1,0 +1,20 @@
+{% set count = 1 %}
+{% set img_type = 'new' %}
+
+<div class="hn_row2">
+    <!--标题-->
+    <div class="hn_title">
+        <img src="/img/titleBg_dataset.png"/>
+        <p>最 新 数 据 集</p>
+    </div>
+    <!--内容-->
+    <div class="hn_content">
+    {% for package in packages %}
+        {% snippet 'home/snippets/dataset_item.html', package=package, icon_index=count, img_type=img_type %}
+        {% set count = count + 1 %}
+    {% endfor %}
+    </div>
+</div>
+
+
+

@@ -1,0 +1,150 @@
+{
+  "scheming_version": 1,
+  "dataset_type": "dataset",
+  "about": "",
+  "about_url": "http://github.com/ckan/ckanext-scheming",
+  "dataset_fields": [
+      {
+        "field_name": "title",
+        "label": "Title",
+        "preset": "title",
+        "form_placeholder": "eg. A descriptive title"
+      },
+      {
+        "field_name": "name",
+        "label": "URL",
+        "preset": "dataset_slug",
+        "form_placeholder": "eg. my-dataset"
+      },
+      {
+        "field_name": "notes",
+        "label": "Description",
+        "form_snippet": "markdown.html",
+        "form_placeholder": "eg. Some useful notes about the data"
+      },
+      {
+        "field_name": "tag_string",
+        "label": "Tags",
+        "preset": "tag_string_autocomplete",
+        "form_placeholder": "eg. economy, mental health, government"
+      },
+      {
+        "field_name": "license_id",
+        "label": "License",
+        "form_snippet": "license.html",
+        "help_text": "License definitions and additional information can be found at http://opendefinition.org/"
+      },
+      {
+        "field_name": "owner_org",
+        "label": "Organization",
+        "preset": "dataset_organization"
+      },
+      {
+        "field_name": "url",
+        "label": "Source",
+        "form_placeholder": "http://example.com/dataset.json",
+        "display_property": "foaf:homepage",
+        "display_snippet": "link.html"
+      },
+      {
+        "field_name": "version",
+        "label": "Version",
+        "validators": "ignore_missing unicode package_version_validator",
+        "form_placeholder": "1.0"
+      },
+      {
+        "field_name": "author",
+        "label": "Author",
+        "form_placeholder": "Joe Bloggs",
+        "display_property": "dc:creator"
+      },
+      {
+        "field_name": "author_email",
+        "label": "Author Email",
+        "form_placeholder": "joe@example.com",
+        "display_property": "dc:creator",
+        "display_snippet": "email.html",
+        "display_email_name_field": "author"
+      },
+      {
+        "field_name": "maintainer",
+        "label": "Maintainer",
+        "form_placeholder": "Joe Bloggs",
+        "display_property": "dc:contributor"
+      },
+      {
+        "field_name": "maintainer_email",
+        "label": "Maintainer Email",
+        "form_placeholder": "joe@example.com",
+        "display_property": "dc:contributor",
+        "display_snippet": "email.html",
+        "display_email_name_field": "maintainer"
+      }
+    ],
+  "resource_fields": [
+      {
+        "field_name": "url",
+        "label": "链接",
+        "preset": "resource_url_upload"
+      },
+      {
+        "field_name": "name",
+        "label": "名称",
+        "form_placeholder": "2017年5月xxx数据"
+      },
+      {
+        "field_name": "description",
+        "label": "简介",
+        "form_snippet": "markdown.html",
+        "form_placeholder": "关于数据文件的简介"
+      },
+      {
+        "field_name": "format",
+        "label": "格式",
+        "preset": "resource_format_autocomplete"
+      },
+      {
+      "field_name": "restricted",
+      "label": "权限设置",
+      "preset": "composite",
+      "subfields":
+       [
+         {
+           "field_name": "level",
+           "label": "权限等级",
+           "preset": "select",
+           "form_include_blank_choice": false,
+           "required": true,
+           "choices": [
+             {
+               "value": "public",
+               "label": "所有人可见"
+             },
+             {
+               "value": "registered",
+               "label": "网站用户可见"
+             },
+             {
+               "value": "any_organization",
+               "label": "任意组织成员可见"
+             },
+             {
+               "value": "same_organization",
+               "label": "同一组织成员可见"
+              },
+              {
+               "value": "only_allowed_users",
+               "label": "指定用户可见"
+             }
+            ]
+          },
+           {
+           "field_name": "allowed_users",
+            "label": "许可用户",
+            "preset": "tag_string_autocomplete",
+            "data-module-source":"/api/2/util/user/autocomplete?q=?"
+            }
+       ]
+      }
+  ]
+}

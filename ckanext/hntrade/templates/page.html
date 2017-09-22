@@ -1,0 +1,21 @@
+{% ckan_extends %}
+
+{% block breadcrumb %}
+    {% if self.breadcrumb_content() | trim %}
+        <ol class="breadcrumb">
+            {% snippet 'snippets/hn_home_breadcrumb_item.html' %}
+            {% block breadcrumb_content %}{% endblock %}
+        </ol>
+    {% endif %}
+{% endblock %}
+
+{% block primary %}
+    <div class="primary span12">
+        {% block primary_content %}
+            {{ super() }}
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block secondary %}
+{% endblock %}

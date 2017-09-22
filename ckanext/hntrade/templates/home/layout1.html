@@ -1,0 +1,22 @@
+<!-- 轮播图 -->
+{% block slide_show %}
+	{% snippet 'home/snippets/slide_show.html' %}
+{% endblock %}
+<!-- 搜索框 -->
+{% block search_box %}
+	{% snippet 'home/snippets/search_box.html' %}
+{% endblock %}
+<!-- 数据主题 -->
+{% block data_theme %}
+	{% snippet 'home/snippets/data_theme.html' %}
+{% endblock %}
+<!-- 热门数据集 -->
+{% block hottest %}
+	{% snippet 'home/snippets/hottest_datasets.html', packages=c.hottest_datasets %}
+{% endblock %}
+<!-- 最新数据集 -->
+{% block newest %}
+	{% snippet 'home/snippets/newest_datasets.html', packages=c.newest_datasets %}
+{% endblock %}
+
+

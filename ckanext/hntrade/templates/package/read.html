@@ -1,0 +1,64 @@
+{% ckan_extends %}
+
+
+{% block content_primary_nav %}
+{% endblock %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block primary_content_inner %}
+    {#{% block share %}
+        <div class="share-buttons">
+            <span class="nav-item">分享：</span>
+            <span class="nav-item">
+                <a class="jiathis_button_weixin" title="分享到微信"><span><i class="fa fa-weixin" aria-hidden="true"></i>&nbsp;微信</span></a>
+            </span>
+            <span class="nav-item">
+                <a class="jiathis_button_tsina" title="分享到微博"><span><i class="fa fa-weibo" aria-hidden="true"></i>&nbsp;新浪微博</span></a>
+            </span>
+        </div>
+    {% endblock %}#}
+    {% block package_description %}
+        {% if pkg.private %}
+          <span class="dataset-private label label-inverse pull-right">
+            <i class="icon-lock"></i>
+            {{ _('Private') }}
+          </span>
+        {% endif %}
+        <h1>
+          {% block page_heading %}
+            {{ h.dataset_display_name(pkg) }}
+            {% if pkg.state.startswith('draft') %}
+              [{{ _('Draft') }}]
+            {% endif %}
+            {% if pkg.state == 'deleted' %}
+              [{{ _('Deleted') }}]
+            {% endif %}
+          {% endblock %}
+          {% set can_edit = h.check_access('package_update', {'id':pkg.id }) %}
+          {% if can_edit %}
+            <a class="cc-btn cc-btn-normal" href="{{ h.url_for('dataset_groups', id=pkg.name) }}" style="font-weight: normal;">群组管理</a>
+            <a class="cc-btn cc-btn-normal" href="{{ h.url_for('dataset_edit', id=pkg.name) }}" style="font-weight: normal;">编辑</a>
+          {% endif %}
+        </h1>
+        {% block package_notes %}
+          {% if pkg.notes %}
+            <div class="notes embedded-content">
+              {{ h.render_markdown(h.get_translated(pkg, 'notes')) }}
+            </div>
+          {% endif %}
+        {% endblock %}
+    {% endblock %}
+    {% block package_resources %}
+        {{ super() }}
+    {% endblock %}
+
+    {% block package_additional_info %}
+        {% snippet "package/snippets/hn_additional_info.html", pkg_dict=pkg %}
+    {% endblock %}
+
+    {% block package_activites %}
+        {% snippet "package/snippets/package_activity.html", activities=activities, pkg_dict=pkg %}
+    {% endblock %}
+{% endblock %}

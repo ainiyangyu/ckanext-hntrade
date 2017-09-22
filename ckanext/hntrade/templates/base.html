@@ -1,0 +1,50 @@
+{% ckan_extends %}
+
+{%- block title -%}
+  {%- block subtitle %}{% endblock -%}
+  {%- if self.subtitle()|trim %} {{ g.template_title_deliminater }} {% endif -%}
+  政务数据
+{%- endblock -%}
+
+{%- block styles %}
+{{ super() }}
+{% resource 'hntrade/data_dict.js' %}
+<link rel="stylesheet" type="text/css" href="/css/bootstrap-reset.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/commodityCatagory.css" />
+<link rel="stylesheet" type="text/css" href="/css/data_opening.css" />
+<link rel="stylesheet" type="text/css" href="/css/hn_main.css" />
+<link rel="stylesheet" type="text/css" href="/vendor/font-awesome-4.7.0/css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="/css/jiathis_share.css" />
+<link rel="stylesheet" type="text/css" href="/css/zxf_page.css" />
+{% endblock %}
+
+
+{%- block scripts %}
+{{ super() }}
+<script src="/js/jquery-1.11.0.min.js" type="text/javascript" charset="utf-8">
+<script src="/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/hn_index.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/data_opening.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  // 排序框
+  $('.cc-imitate-text').on('click',function(){
+      $(this).siblings('.cc-imitate-selector-list').toggle();
+  })
+  $('.cc_buyers_center').on('mouseleave',function(){
+      $('.cc-imitate-selector-list').hide()
+  })
+</script>
+<script type="text/javascript">
+tockansso();
+function tockansso(){
+    {% if not c.get_request %}
+    window.location="http://gov.ahdataex.com/ckansso/reload/ckansso_reload2.jsp";
+    {% endif %}
+}
+</script>
+{% endblock -%}
+
+
+
+

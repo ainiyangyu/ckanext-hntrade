@@ -1,0 +1,33 @@
+{% block header_wrapper %}
+<div class="cc-header">
+    <div class="cc-header-wrap">
+        <span class="cc-logo"><a href="http://www.ahdataex.com"><img src="/img/logo.png" alt=""></a></span>
+        <span class="cc-label cc-label-active"><a class="cc-label-a" href="{{ h.url_for('search') }}">政务数据</a></span>
+        <span class="cc-label "><a class="cc-label-a" href="http://comm.ahdataex.com:8084/dataset">运营商数据</a></span>
+        {#<span class="cc-label "><a class="cc-label-a" href="javascript:;">气象数据</a></span>
+        <span class="cc-label "><a class="cc-label-a" href="javascript:;">医疗数据</a></span>
+        <span class="cc-label "><a class="cc-label-a" href="javascript:;">煤炭数据</a></span>
+        <span class="cc-label "><a class="cc-label-a" href="javascript:;">卫星数据</a></span>#}
+        {% if not c.userobj %}
+        <div class="cc_head_portrait">
+            <a href="{{ h.url_for('cas_login') }}"><button class="do-login">登录</button></a>
+            <a href="http://www.ahdataex.com/hnplatform/page/register.html"><button class="do-register">注册</button></a>
+        </div>
+        {% else %}
+        <div class="loginMes" id="userLoginSet" style="display: block:">
+            <img class="face" src="/img/defult_people.png" alt="">
+            <span class="name" id="userSessionName">{{ c.userobj.display_name }}</span>
+            <ul>
+                <li>
+                    <a href="http://www.ahdataex.com/hnplatform/page/personal.html">个人中心</a>
+                </li>
+                <li>
+                    <a href="http://www.ahdataex.com/HnBdmarkportal/a/casLogout">退出登录</a>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

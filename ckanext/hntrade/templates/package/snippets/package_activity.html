@@ -1,0 +1,43 @@
+{% set activities = h.get_package_activities(pkg_dict.id) %}
+{% set newest = activities[0] %}
+{% set older = activities[1:] %}
+
+<section class="activity">
+    <h3>更新历史</h3>
+    {% if activities %}
+    <ul>
+        <li class="item cc-delete-resource">
+            <div class="cc-activity-serial"><i class="icon-calendar"></i></div>
+            <div class="cc-activity-detail">
+                <div>
+                    <span class="date">{{ h.render_datetime(pkg_dict.metadata_modified, date_format='%Y-%m-%d %H:%M') }}</span>
+                </div>
+                <div>
+                    {{ newest.msg }}
+                </div>
+            </div>
+        </li>
+        {% for activity in older %}
+        <li class="item cc-delete-resource">
+            <div class="cc-activity-serial"><i class="icon-calendar"></i></div>
+            <div class="cc-activity-detail">
+                <div>
+                    <span class="date">{{ h.render_datetime(activity.datetime, date_format='%Y-%m-%d %H:%M') }}</span>
+                </div>
+                <div>
+                    {{ activity.msg }}
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <ul>
+        <li class="item cc-delete-resource">
+            <div class="cc-activity-detail">
+                <i style="font-style: italic; color: #333333;">该数据集暂无更新</i>
+            </div>
+        </li>
+    </ul>
+    {% endif %}
+</section>

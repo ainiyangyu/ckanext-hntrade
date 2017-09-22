@@ -1,0 +1,89 @@
+{% import 'macros/form.html' as form %}
+
+{% set data = data or {} %}
+{% set errors = errors or {} %}
+
+<form id="data_dict" class="data_dict-form" method="post">
+<fieldset>
+    <legend>{{ title }}</legend>
+</fieldset>
+{% block package_datadict_fields %}
+    {% block package_metadata_fields_custom %}
+    <p>
+        <div data-module="custom-fields">
+            <div class="row-fluid" style="text-align:center;font-weight:bold;">
+                <div class="span3">字段</div>
+                <div class="span3">类型</div>
+                <div class="span3">描述</div>
+            </div>
+              {% if res_data_dict %}
+                {% set data_dict = res_data_dict %}
+                {% set data_dict = data_dict + [[]] %}
+              {% else %}
+                {% set data_dict = [[],[],[]] %}
+              {% endif %}
+            {% for extra in data_dict %}
+                {% set index = loop.index0 + (extras|count) %}
+                {% if data_dict[index] %}
+                {% set current_data_dict = data_dict[index] %}
+                {% else %}
+                {% set current_data_dict = {'field_name' :'', 'title':'','description' :''} %}
+                {% endif %}
+                <div class="control-group control-custom" style="margin:1px;">
+                    <div class="row-fluid">
+                        <div class="span3"><input id="field-{{ index }}" type="text" name="field_{{ index }}" value="{{current_data_dict['field']}}" style="width:100%" /></div>
+                        <div class="span3">
+                            <select class="span20" name="format_{{index}}">
+                                <optgroup label="String">
+                                    <option value="String" {% if current_data_dict['format'] == "String" %} selected {% endif %}>String</option>
+                                            <option value="Email" {% if current_data_dict['format'] == "Email" %} selected {% endif %}>Email</option>
+                                            <option value="URI" {% if current_data_dict['format'] == "URI" %} selected {% endif %}>URI</option>
+                                            <option value="Binary" {% if current_data_dict['format'] == "Binary" %} selected {% endif %}>Binary</option>
+                                            <option value="UUID" {% if current_data_dict['format'] == "UUID" %} selected {% endif %}>UUID</option>
+                                </optgroup>
+                                <optgroup label="Number">
+                                            <option value="Number" {% if current_data_dict['format'] == "Number" %} selected {% endif %}>Number</option>
+                                            <option value="Integer" {% if current_data_dict['format'] == "Integer" %} selected {% endif %}>Integer</option>
+                                            <option value="Currency" {% if current_data_dict['format'] == "Currency" %} selected {% endif %}>Currency</option>
+                                </optgroup>
+                                <optgroup label="Date/Time">
+                                            <option value="ISO8601 Date" {% if current_data_dict['format'] == "ISO8601 Date" %} selected {% endif %}>ISO8601 Date</option>
+                                    <option value="Other Date" {% if current_data_dict['format'] == "Other Date" %} selected {% endif %}>Other Date</option>
+                                            <option value="Duration" {% if current_data_dict['format'] == "Duration" %} selected {% endif %}>Duration</option>
+                                </optgroup>
+                                <optgroup label="Other">
+                                    <option value="Boolean" {% if current_data_dict['format'] == "Boolean" %} selected {% endif %}>Boolean</option>
+                                    <option value="Geopoint" {% if current_data_dict['format'] == "Geopoint" %} selected {% endif %}>Geopoint</option>
+                                    <option value="GeoJSON" {% if current_data_dict['format'] == "GeoJSON" %} selected {% endif %}>GeoJSON</option>
+                                    <option value="TopoJSON" {% if current_data_dict['format'] == "TopoJSON" %} selected {% endif %}>TopoJSON</option>
+                                    <option value="JSON Object" {% if current_data_dict['format'] == "JSON Object" %} selected {% endif %}>JSON Object</option>
+                                    <option value="JSON Array" {% if current_data_dict['format'] == "JSON Array" %} selected {% endif %}>JSON Array</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="span3"><input id="description-{{ index }}" type="text" name="description_{{ index }}" value="{{current_data_dict['description']}}" style="width:100%" /></div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </p>
+
+    {% block data_dict_buttons %}
+        {% if res_data_dict %}
+            {% block delete_button %}
+                {% if h.check_access('package_delete', {'id': pkg.id}) and not pkg.state == 'deleted' %}
+                  {% set locale = h.dump_json({'content': '确认删除字段说明？'}) %}
+                  <a class="btn btn-danger pull-left" style="margin-top: 30px;" href="{{ h.url_for('delete_data_dict', res_id=res.id, pkg_id=pkg.id) }}" data-module="confirm-action" data-module-i18n="{{ locale }}">{% block delete_button_text %}{{ _('Delete') }}{% endblock %}</a>
+                {% endif %}
+            {% endblock %}
+        {% endif %}
+        {% block save_button %}
+        <div class="form-actions">
+            <input name="save" type="submit" class="btn btn-primary" value="提交"/>
+        </div>
+        {% endblock %}
+    {% endblock %}
+
+    {% endblock %}
+{% endblock %}
+</form>

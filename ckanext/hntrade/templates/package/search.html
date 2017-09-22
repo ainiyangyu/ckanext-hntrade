@@ -1,0 +1,93 @@
+{% ckan_extends %}
+
+{% block subtitle %}数据集{% endblock %}
+
+{% block breadcrumb_content %}
+{% endblock %}
+
+{% block content %}
+<div class="cc-container-c">
+    <div class="c-c-container">
+    {% block main_content %}
+
+        {% block flash %}
+          {{ super() }}
+        {% endblock %}
+
+        {% block toolbar %}
+          {{ super() }}
+        {% endblock %}
+
+        {% block primary %}
+            <div class="cc-content-left">
+                {% block secondary %}
+                <div class="cc-data-catagory">
+                    <div class="cc-mechanism-all">
+                        {% block secondary_content %}
+                            {% set facet_name = h.get_needed_facet() %}
+                                {% for facet in facet_name %}
+                                {% set index = loop.index %}
+                                {% if facet == 'organization' %}
+                                    {% set display_name = '机构' %}
+                                {% elif facet == 'groups' %}
+                                    {% set display_name = '主题' %}
+                                {% else %}
+                                    {% set display_name = '数据分类' %}
+                                {% endif %}
+                                <div class="cc-left-title cc-left-title{{ index }}">
+                                    <span class="cc-left-title-d cc-left-title-d1">{{ display_name }}</span>
+                                    <span class="cc-left-title-d cc-left-title-d2">
+                                        <img class="do-top-bottom do-top-bottom{{ index }}" src="/img/dataOpening/toTop.png" alt="">
+                                    </span>
+                                </div>
+                                <div class="cc-data-catagory-container cc-data-catagory-container{{ index }}">
+                                    {{ h.snippet('snippets/hn_needed_facet.html', name=facet) }}
+                                </div>
+                                {% endfor %}
+                        {% endblock %}
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+            {% block primary_content %}
+            <div class="cc-content-right">
+                {% block page_primary_action %}
+                  {{ super() }}
+                {% endblock %}
+
+                {% block form %}
+                    {% set facets = {
+                      'fields': c.fields_grouped,
+                      'search': c.search_facets,
+                      'titles': c.facet_titles,
+                      'translated_fields': c.translated_fields,
+                      'remove_field': c.remove_field }
+                    %}
+                    {% set sorting = [
+                      ('默认排序', 'score desc, metadata_modified desc'),
+                      (_('Name Ascending'), 'title_string asc'),
+                      (_('Name Descending'), 'title_string desc'),
+                      (_('Last Modified'), 'metadata_modified desc'),
+                      (_('Popular'), 'views_recent desc') if g.tracking_enabled else (false, false) ]
+                    %}
+                    {% snippet 'snippets/hn_search_form.html', form_id='dataset-search-form', type='dataset', query=c.q, sorting=sorting, sorting_selected=c.sort_by_selected, count=c.page.item_count, facets=facets, show_empty=request.params, error=c.query_error, fields=c.fields %}
+                {% endblock %}
+
+                {% block package_search_results_list %}
+                  {{ h.snippet('snippets/hn_package_list.html', packages=c.page.items) }}
+                {% endblock %}
+
+                {% block page_pagination %}
+                  {{ super() }}
+                {% endblock %}
+
+                {% block package_search_results_api %}
+                {% endblock %}
+            </div>
+            {% endblock %}
+        {% endblock %}
+
+    {% endblock %}
+    </div>
+</div>
+{% endblock %}

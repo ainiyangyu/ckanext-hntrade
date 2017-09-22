@@ -1,0 +1,18 @@
+{% ckan_extends %}
+
+{% set current_url = h.full_current_url() %}
+{% block social %}
+<link rel="stylesheet" href="/vendor/font-awesome-4.7.0/css/font-awesome.css" type="text/css" />
+  <section class="module module-narrow social">
+    {% block social_title %}
+      <h2 class="module-heading"><i class="icon-medium icon-share"></i> {{ _('Social') }}</h2>
+    {% endblock %}
+    {% block social_nav %}
+      <ul class="nav nav-simple">
+        <li class="nav-item"><a href="" target="_blank"><i class="fa fa-weixin"></i> 微信</a></li>
+        <li class="nav-item"><a href="" target="_blank"><i class="fa fa-qq"></i> QQ</a></li>
+        <li class="nav-item"><a href="" target="_blank"><i class="fa fa-weibo"></i> 新浪微博</a></li>
+      </ul>
+    {% endblock %}
+  </section>
+{% endblock %}

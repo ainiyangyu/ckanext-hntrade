@@ -1,0 +1,17 @@
+{% if query %}
+  {%- if count -%}
+    <span class="do-checking-num-text lt">找到 <i class="do-checking-count">{{ count }}</i> 个数据集
+    </span>
+  {%- else -%}
+    <span class="do-checking-num-text lt">没有找到与 <i class="do-checking-count">{{ query }}</i> 相关的数据集
+    </span>
+  {%- endif -%}
+{%- else -%}
+  {%- if count -%}
+    <span class="do-checking-num-text lt">找到 <i class="do-checking-count">{{ count }}</i> 个数据集
+    </span>
+  {%- else -%}
+    <span class="do-checking-num-text lt"><i class="do-checking-count">没有相关数据集</i>
+    </span>
+  {%- endif -%}
+{%- endif -%}

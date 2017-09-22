@@ -1,0 +1,5 @@
+{% if data_dict %}
+  {% set loading_text = _('Loading...') %}
+  {% set data_dict_url = h.url_for(controller='api', action='snippet', ver=1, snippet_path='hn_data_dict.html', res_id=res_id) %}
+  <a class="cc-btn cc-btn-normal" href="{{ data_dict_url }}" data-module="data-dict" data-module-template="{{ data_dict_url }}" data-loading-text="{{ loading_text }}"> 数据字典</a>
+{% endif %}

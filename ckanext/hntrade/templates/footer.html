@@ -1,0 +1,79 @@
+<div class="footer">
+    <div class="footer_list">
+        <ul style="margin: 0px;">
+            <li class="footer_first_li">
+                <div class="footer_line footer_left_line_hidden">
+                    <span>
+                        <img src="/img/footer-1.png">
+                        <h4>新手上路</h4>
+                    </span>
+                    <ul  style="margin: 0px;">
+                        <li><a href="http://www.ahdataex.com/page/document.html">开放数据</a></li>
+                        <li><a href="http://www.ahdataex.com/page/document.html">创客空间</a></li>
+                        <li><a href="http://www.ahdataex.com/page/document.html">数据交易</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="footer_line">
+                    <span>
+                        <img src="/img/footer-2.png">
+                        <h4>平台功能</h4>
+                    </span>
+                    <ul style="margin: 0px;">
+                        <li><a href="http://www.ahdataex.com/page/document.html">开放数据</a></li>
+                        <li><a href="http://www.ahdataex.com/page/document.html">创客空间</a></li>
+                        <li><a href="http://www.ahdataex.com/page/document.html">数据交易</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="footer_line">
+                    <span>
+                        <img src="/img/footer-3.png">
+                        <h4>关于我们</h4>
+                    </span>
+                    <ul style="margin: 0px;">
+                        <li><a href="#">公司简介</a></li>
+                        <li><a href="#">新闻动态</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="footer_line">
+                    <span>
+                        <img src="/img/footer-4.png">
+                        <h4>快捷入口</h4>
+                    </span>
+                    <ul style="margin: 0px;">
+                        <li><a href="#">训练场</a></li>
+                        <li><a href="#">用户中心</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="footer_list_last">
+                <div class="footer_line ">
+                    <span>
+                        <img src="/img/footer-5.png">
+                        <h4>联系我们</h4>
+                    </span>
+                    <ul style="margin: 0px;">
+                        <li><span>电话：400-8888-888</span></li>
+                        <li><span>邮箱：wangjr100@chinaunicom.cn</span></li>
+                        <li><span>地址：金融街街道金融大街21号中国联通大厦</span></li>
+                    </ul>
+                </div>
+                <div class="footer_code"><img src="/img/er.png"></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="footer2">
+    <p>Copyright@1999-2017 安徽大数据交易中心版权所有</p>
+</div>
+
+{% block footer_debug %}
+    {% if g.debug %}
+        {% include 'snippets/debug.html' %}
+    {% endif %}
+{% endblock %}

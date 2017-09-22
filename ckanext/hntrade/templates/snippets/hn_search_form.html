@@ -1,0 +1,192 @@
+{% import 'macros/form.html' as form %}
+
+{% set placeholder = placeholder if placeholder else _('Search datasets...') %}
+{% set sorting = sorting if sorting else [(_('Name Ascending'), 'name asc'), (_('Name Descending'), 'name desc')] %}
+{% set search_class = search_class if search_class else 'search-giant' %}
+{% set no_bottom_border = no_bottom_border if no_bottom_border else false %}
+{% set form_id = form_id if form_id else false %}
+{% set tags = h.get_facet_items_dict('tags', limit=6) %}
+
+<form {% if form_id %}id="{{ form_id }}" {% endif %}class="search-form{% if no_bottom_border %} no-bottom-border{% endif %}" method="get" data-module="select-switch">
+
+    {% block search_input %}
+        <div class="cc-checking-box">
+          <input style="border: none; height: 100%;" type="text" class="cc-input-checking lt" name="q" value="{{ query }}" autocomplete="off">
+          {% block search_input_button %}
+          <button class="cc-button-chcking" type="submit" value="search">搜索</button>
+          {% endblock %}
+        </div>
+        <div class="cc-hot-words">
+            <ul>
+            {% for tag in tags %}
+                <li class="cc-hot-word-li"><a href="{% url_for controller='package', action='search', tags=tag.name %}">{{ h.truncate(tag.display_name, 22) }}</a></li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endblock %}
+
+    {% block select_fields %}
+    <div class="cc-selector-adding">
+        <table class="cc-selector-adding-table">
+            <tbody>
+                <tr>
+                    <td class="cc-selector-catagory">筛选条件：</td>
+                    <td class="cc-content-condition-container">
+                    {% if facets %}
+                        {% for field in facets.fields %}
+                            {% set search_facets_items = facets.search.get(field)['items'] %}
+                            <span class="cc-content-condition-all"><a href="{{ facets.remove_field(field, value) }}"><img class="cc-close-s" src="/img/dataOpening/cc-close.png"></a>{{ facets.titles.get(field) }}:
+                            {% for value in facets.fields[field] %}
+                                <span class="cc-selected-item">
+                                    {%- if facets.translated_fields and facets.translated_fields.has_key((field,value)) -%}
+                                        {{ facets.translated_fields[(field,value)] }}
+                                    {%- else -%}
+                                        {{ h.list_dict_filter(search_facets_items, 'name', 'display_name', value) }}
+                                    {%- endif %}
+                                </span>
+                            {% endfor %}
+                            </span>
+                        {% endfor %}
+                    {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cc-selector-catagory">标签：</td>
+                    <td class="cc-selector-li cc-selector-li1" data-belong="标签:">
+                    {% with items = items or h.get_facet_items_dict('tags') %}
+                    {% set name = 'tags' %}
+                    {% if items %}
+                          {% for item in items %}
+                            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                            {% set label = label_function(item) if label_function else item.display_name %}
+                            {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+                            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                                <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+                                  <span class="cc-content-limit-condition cc-content-limit-active">{{ label_truncated }}<i class="do-catagory-num">{{ count }}</i></span>
+                                </a>
+                          {% endfor %}
+
+                      <i class="do-list-more">
+                        {% if h.get_param_int('_%s_limit' % name) %}
+                          {% if h.has_more_facets(name) %}
+                            <a href="{{ h.remove_url_param('_%s_limit' % name, replace=0, extras=extras, alternative_url=alternative_url) }}" class="read-more">显示更多</a>
+                          {% endif %}
+                        {% else %}
+                          <a href="{{ h.remove_url_param('_%s_limit' % name, extras=extras, alternative_url=alternative_url) }}" class="read-more">收起</a>
+                        {% endif %}
+                      </i>
+                    {% else %}
+                      <p class="module-content empty">没有相关内容</p>
+                    {% endif %}
+                    {% endwith %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cc-selector-catagory">格式：</td>
+                    <td class="cc-selector-li" data-belong="格式:">
+                    {% with items = items or h.get_facet_items_dict('res_format') %}
+                    {% set name = 'res_format' %}
+                    {% if items %}
+                          {% for item in items %}
+                            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                            {% set label = label_function(item) if label_function else item.display_name %}
+                            {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+                            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                                <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+                                  <span class="cc-content-limit-condition cc-content-limit-active">{{ label_truncated }}<i class="do-catagory-num">{{ count }}</i></span>
+                                </a>
+                          {% endfor %}
+                    {% else %}
+                      <p class="module-content empty">没有相关内容</p>
+                    {% endif %}
+                    {% endwith %}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="cc-selector-catagory">授权：</td>
+                    <td class="cc-selector-li" data-belong="数据来源:">
+                    {% with items = items or h.get_facet_items_dict('license_id') %}
+                    {% set name = 'license_id' %}
+                    {% if items %}
+                          {% for item in items %}
+                            {% set href = h.remove_url_param(name, item.name, extras=extras, alternative_url=alternative_url) if item.active else h.add_url_param(new_params={name: item.name}, extras=extras, alternative_url=alternative_url) %}
+                            {% set label = label_function(item) if label_function else item.display_name %}
+                            {% set label_truncated = h.truncate(label, 22) if not label_function else label %}
+                            {% set count = count_label(item['count']) if count_label else ('(%d)' % item['count']) %}
+                                <a href="{{ href }}" title="{{ label if label != label_truncated else '' }}">
+                                  <span class="cc-content-limit-condition cc-content-limit-active">{{ label_truncated }}<i class="do-catagory-num">{{ count }}</i></span>
+                                </a>
+                          {% endfor %}
+                    {% else %}
+                      <p class="module-content empty">没有相关内容</p>
+                    {% endif %}
+                    {% endwith %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endblock %}
+
+    {% block search_search_fields %}
+        {% if fields -%}
+            <span>{{ form.hidden_from_list(fields=fields) }}</span>
+        {%- endif %}
+    {% endblock %}
+
+    {% block search_sortby %}
+        {% if sorting %}
+            {% set label_show = {} %}
+            {% for label, value in sorting %}
+                {% do label_show.update({value: label}) %}
+            {% endfor %}
+            <div class="cc_buyers_center">
+                <div class="cc-imitate-selector lt">
+                    <span class="cc-imitate-text">{{ label_show[sorting_selected] }}</span>
+                    <div class="cc-imitate-selector-list">
+                        <input id="sort_query" name="sort" type="hidden">
+                        <ul>
+                        {% for label, value in sorting %}
+                            <li class="cc-imitate-selector-li" onClick="sort_submit('{{ value }}')">{{ label }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block search_title %}
+        {% if not error %}
+            <h2>{% snippet 'snippets/hn_search_result_text.html', query=query, count=count, type=type %}</h2>
+        {% else %}
+            <h2>Error</h2>
+        {% endif %}
+    {% endblock %}
+
+    {% block search_facets %}
+    {% endblock %}
+
+</form>
+
+{% if show_empty and count == 0 and not error %}
+    {% trans %}
+        <p class="extra">请尝试搜索其它内容。</p>
+    {% endtrans %}
+{% endif %}
+
+{% if error %}
+    {% trans %}
+        <p id="search-error"><strong>搜索发生错误。</strong> 请重新尝试。</p>
+    {% endtrans %}
+{% endif %}
+
+<script type="text/javascript" charset="utf-8">
+function sort_submit(sort) {
+    document.getElementById('sort_query').value=sort;
+    document.getElementById('dataset-search-form').submit();
+}
+</script>
+
+

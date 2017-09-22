@@ -1,0 +1,213 @@
+i{
+    font-style: normal;
+}
+.cc-selector-li{
+    padding-top: 10px;
+    /* padding-bottom: 10px; */
+}
+.do-catagory-num{
+    font-style: normal;
+}
+.cc-selector-li span{
+    float: left;
+    margin-left: 28px;
+    margin-bottom: 10px;
+}
+
+.do-checking-count,.do-checking-count-text{
+    color: #e83133;
+    font-size: 16px;
+}
+.do-checking-result-num{
+    height: 40px;
+    padding-top: 20px;
+}
+.do-checking-num-text{
+    font-size: 16px;
+}
+.cc-content-li-c{
+    width: 684px;
+}
+.do-content-label{
+    font-size: 12px;
+    color: #fff;
+    display: inline-block;
+    /* background: #f5a000; */
+    /* padding: 1px 5px; */
+    /* border-radius: 7px; */
+    background: url(../images/dataOpening/CSV.png) no-repeat 0px 0px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 28px;
+}
+.cc-dataset-format .format-label {
+    width: 23px;
+    height: 25px;
+}
+.do-li-catagory{
+    width: 90px;
+    height: 27px;
+    color: #fff;
+    line-height: 27px;
+    text-align: center;
+    border-radius: 15px 0 0 15px;
+}
+.do-li-catagory.blue{
+    background: #1c86e0;
+}
+.do-li-catagory.red{
+    background: #fb3c40;
+}
+.cc-content-li{
+    position: relative;
+}
+.cc-content-li:hover{
+    box-shadow: 0 0 1px 1px #e71015;
+}
+.do-li-catagory{
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+.cc-input-checking{
+    width: 835px;
+}
+.do-login,.do-register{
+    width: 94px;
+    height: 30px;
+}
+.do-login{
+    color: #fff;
+    background: #e61014;
+    margin-right: 12px;
+}
+.do-register{
+    background: #dddddd;
+}
+.do-register:hover{
+    background: #e61014;
+    color: #fff;
+    border: 1px solid #e61014;
+}
+.cc-head-checking-icon{
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+}
+.cc-left-title{
+    padding-top: 5px;
+    border: 1px  solid #ededed;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+}
+.cc-left-title1{
+    background: url(../img/dataOpening/mechanism.png) no-repeat 22px 18px;
+}
+.cc-left-title2{
+    background: url(../img/dataOpening/theme.png) no-repeat 22px 18px;
+}
+.cc-left-title-d1{
+    margin-left: 55px;
+}
+.cc-left-title-d2{
+    margin-right: 20px;
+}
+.cc-left-title{
+    height: 53px;
+}
+.cc-data-catagory{
+    margin-top: 15px;
+    border: 1px solid #ededed;
+    background: #f6f6f6;
+}
+.cc-data-catalogue-ul {
+    margin: 0 0 0 0;
+}
+.cc-data-catagory-li{
+    height: 36px;
+    line-height: 36px;
+    padding-left: 20px;
+    background: #fff;
+    cursor: pointer;
+}
+.cc-data-catagory-li:hover{
+    /* background: #f3f3f3; */
+    color: #e93d41;
+}
+.cc-data-catagory-li:hover .cc-data-catagory-des,.cc-data-catagory-li:hover .cc-data-catagory-des-count{
+     color: #e93d41;
+}
+.cc-data-catagory-des,.cc-data-catagory-des-count{
+    font-size: 14px;
+}
+.cc-data-catagory-container{
+    display: none;
+}
+.cc-data-catagory-container.cc-data-catagory-container1{
+    display: block;
+}
+.cc-data-catagory-container.cc-data-catagory-container2{
+    display: block;
+}
+.cc-selector-li1{
+    position: relative;
+}
+.do-list-more{
+    position: absolute;
+    bottom: 11px;
+    right: 9px;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+}
+.do-list-more:hover{
+    color: #e83134;
+}
+.cc-selector-catagory{
+    width: 99px;
+}
+.isselected .do-catagory-num{
+    color: #e61014;
+}
+
+.do-sort-selector-c{
+    width: 166px;
+    height: 28px;
+    position: relative;
+}
+.cc-imitate-result{
+    width: 120px;
+    height: 26px;
+    border: 1px solid #d8d8d8;
+    font-size: 14px;
+    line-height: 26px;
+    left: 45px;
+    text-indent: 7px;
+}
+.do-sort-selector-c-text{
+    position: absolute;
+    font-size: 14px;
+    left:0px;
+    top: 4px;
+}
+.cc-imitate-selector-container{
+    top: 27px;
+    box-shadow: 1px 2px 4px 2px #d8d8d8;
+    width: 120px;
+}
+
+.cc-imitate-selector-li{
+    height: 26px;
+    line-height: 26px;
+    text-align: left;
+    text-indent: 7px;
+}
+.cc-data-catagory-li.cc-data-active{
+    background: white;
+    color: #e93d41;
+}
+.cc-data-catagory-li.cc-data-active .cc-data-catagory-des,.cc-data-catagory-li.cc-data-active .cc-data-catagory-des-count{
+     color: #e93d41;
+}
